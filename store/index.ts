@@ -9,12 +9,31 @@ export const useUserStore = defineStore("user", {
     user: null as IUser | null,
     playlist: null as IPlaylist | null,
     tracks: null as ITrack | null,
+    loading: false,
   }),
-  getters: {},
+  getters: {
+    blobUrl() {
+      const line = this.tracks?.items
+        .map(
+          (track) =>
+            `${track.track.name} | ${track.track.artists
+              .map((x) => x.name)
+              .join(", ")}`
+        )
+        .join("\n");
+
+      const blob = new Blob([line], { type: "text/plain" });
+      const url = URL.createObjectURL(blob);
+      return url;
+    },
+  },
   actions: {
     async getUser() {
       const user = useAccount();
-      this.user = await getUserInfo(user.value.token);
+      this.loading = true;
+      this.user = await getUserInfo(user.value.token).finally(
+        () => (this.loading = false)
+      );
     },
     async getUserPlaylists() {
       if (!this.user) {
@@ -22,8 +41,11 @@ export const useUserStore = defineStore("user", {
       }
 
       this.playlist = null;
+      this.loading = true;
 
-      const data = await getUserPlaylists(this.user?.id);
+      const data = await getUserPlaylists(this.user?.id).finally(
+        () => (this.loading = false)
+      );
 
       if (data) {
         this.playlist = data;
@@ -35,8 +57,11 @@ export const useUserStore = defineStore("user", {
       }
 
       this.tracks = null;
+      this.loading = true;
 
-      const data = await getPlaylistTracks(playlistId);
+      const data = await getPlaylistTracks(playlistId).finally(
+        () => (this.loading = false)
+      );
 
       if (data) {
         this.tracks = data;

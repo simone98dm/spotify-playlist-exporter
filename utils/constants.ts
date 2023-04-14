@@ -9,4 +9,4 @@ export const PROFILE_ENDPOINT = () => `https://api.spotify.com/v1/me`;
 
 export const stateKey = "spotify_auth_state";
 
-export const clientId = import.meta.env.VITE_CLIENT_ID;
+export const clientId = import.meta.env.VITE_CLIENT_ID || "";

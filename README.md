@@ -1,6 +1,6 @@
-# Nuxt 3 Minimal Starter
+# Spotify playlist exporter
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+export in text format the list of songs in your playlists.
 
 ## Setup
 
