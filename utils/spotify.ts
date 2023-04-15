@@ -55,9 +55,9 @@ export async function getUserPlaylists(userId?: string) {
   if (!userId) {
     return null;
   }
-  const account = useAccount();
+  const account = useToken();
   return await fetch(PLAYLIST_ENDPOINT(userId), {
-    headers: getHeader(account.value.token),
+    headers: getHeader(account.token),
   }).then((response) => response.json() as unknown as IPlaylist);
 }
 
@@ -65,9 +65,9 @@ export async function getPlaylistTracks(playlistId?: string) {
   if (!playlistId) {
     return null;
   }
-  const account = useAccount();
+  const account = useToken();
   return await fetch(TRACK_ENDPOINT(playlistId), {
-    headers: getHeader(account.value.token),
+    headers: getHeader(account.token),
   }).then((response) => response.json() as unknown as ITrack);
 }
 

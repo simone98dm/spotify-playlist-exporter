@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-const user = useAccount();
+const user = useToken();
 const loginUrl = buildSpotifyRedirectUrl();
 </script>
 

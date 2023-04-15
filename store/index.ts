@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { useAccount } from "~/composables/useAccount";
+import { useToken } from "~/composables/useToken";
 import { IPlaylist } from "~/models/Playlist";
 import { ITrack } from "~/models/Track";
 import { IUser } from "~/models/User";
@@ -29,9 +29,9 @@ export const useUserStore = defineStore("user", {
   },
   actions: {
     async getUser() {
-      const user = useAccount();
+      const user = useToken();
       this.loading = true;
-      this.user = await getUserInfo(user.value.token).finally(
+      this.user = await getUserInfo(user.token).finally(
         () => (this.loading = false)
       );
     },
