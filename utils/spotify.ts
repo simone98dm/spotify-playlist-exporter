@@ -1,4 +1,4 @@
-import { IPlaylist } from "~/models/Playlist";
+import { IPlaylist, PlaylistItem } from "~/models/Playlist";
 import { ITrack } from "~/models/Track";
 import { IUser } from "~/models/User";
 import { clientId, PROFILE_ENDPOINT, stateKey } from "~/utils/constants";
@@ -29,7 +29,7 @@ export function buildSpotifyRedirectUrl(): string {
   let redirect_uri = window.location.origin + window.location.pathname;
   let state = generateRandomString(16);
   localStorage.setItem(stateKey, state);
-  let scope = "user-top-read";
+  let scope = "playlist-read-private playlist-read-collaborative";
 
   let url = "https://accounts.spotify.com/authorize";
   url += "?response_type=token";

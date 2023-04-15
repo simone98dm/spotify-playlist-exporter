@@ -5,10 +5,10 @@ export interface ITrack {
   offset: number;
   previous: string;
   total: number;
-  items: Item[];
+  items: TrackItem[];
 }
 
-export interface Item {
+export interface TrackItem {
   added_at: string;
   added_by: AddedBy;
   is_local: boolean;
