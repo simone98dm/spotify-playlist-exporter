@@ -1,5 +1,5 @@
 import { IPlaylist, PlaylistItem } from "~/models/Playlist";
-import { ITrack } from "~/models/Track";
+import { ITrack, TrackItem } from "~/models/Track";
 import { IUser } from "~/models/User";
 import { clientId, PROFILE_ENDPOINT, stateKey } from "~/utils/constants";
 
@@ -51,24 +51,55 @@ export async function getUserInfo(access_token: string) {
   }).then((response) => response.json() as unknown as IUser);
 }
 
-export async function getUserPlaylists(userId?: string) {
+export async function getUserPlaylists(
+  userId?: string
+): Promise<PlaylistItem[] | null> {
   if (!userId) {
     return null;
   }
+
   const account = useToken();
-  return await fetch(PLAYLIST_ENDPOINT(userId), {
-    headers: getHeader(account.token),
-  }).then((response) => response.json() as unknown as IPlaylist);
+
+  let url = PLAYLIST_ENDPOINT(userId);
+  const list: PlaylistItem[] = [];
+  do {
+    const playlists = await fetch(url, {
+      headers: getHeader(account.token),
+    }).then((response) => response.json() as unknown as IPlaylist);
+
+    url = playlists.next;
+
+    if (playlists.items) {
+      playlists.items.map((x) => list.push(x));
+    }
+  } while (Boolean(url));
+
+  return list;
 }
 
-export async function getPlaylistTracks(playlistId?: string) {
+export async function getPlaylistTracks(
+  playlistId?: string
+): Promise<TrackItem[] | null> {
   if (!playlistId) {
     return null;
   }
   const account = useToken();
-  return await fetch(TRACK_ENDPOINT(playlistId), {
-    headers: getHeader(account.token),
-  }).then((response) => response.json() as unknown as ITrack);
+
+  let url = TRACK_ENDPOINT(playlistId);
+  const list: TrackItem[] = [];
+  do {
+    const tracks = await fetch(url, {
+      headers: getHeader(account.token),
+    }).then((response) => response.json() as unknown as ITrack);
+
+    url = tracks.next;
+
+    if (tracks.items) {
+      tracks.items.map((x) => list.push(x));
+    }
+  } while (Boolean(url));
+
+  return list;
 }
 
 function getHeader(access_token: string): any {

@@ -7,11 +7,14 @@ const userStore = useUserStore();
 <template>
   <section v-if="userStore.tracks">
     <BaseCard
-      v-for="track in userStore.tracks.items"
+      v-for="track in userStore.tracks"
       :key="track.track.id"
       class="song"
     >
-      <img :src="track.track.album.images[0].url" />
+      <img
+        v-if="track.track.album.images.length > 0"
+        :src="track.track.album.images[0].url"
+      />
       <div class="song-detail">
         <span class="song-title">
           {{ track.track.name }}

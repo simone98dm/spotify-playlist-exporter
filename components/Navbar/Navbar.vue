@@ -9,7 +9,7 @@ const userStore = useUserStore();
     <span class="brand-name">Spotify playlist export</span>
     <div class="right">
       <BaseButton
-        variant="primary"
+        variant="accent"
         v-if="userStore.tracks"
         data-testid="download-playlist"
       >
@@ -27,11 +27,14 @@ const userStore = useUserStore();
   height: 80px;
   background-color: var(--primary-color);
   display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .right {
-  margin: auto 0 auto auto;
+  margin: 0 8px;
 }
+
 .brand-name {
   color: var(--font-color);
   font-size: 1.5rem;

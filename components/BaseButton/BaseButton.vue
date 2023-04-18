@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 interface ButtonProps {
-  variant?: "primary" | "secondary" | "outline";
+  variant?: "primary" | "secondary" | "outline" | "accent";
 }
 
 withDefaults(defineProps<ButtonProps>(), { variant: "primary" });
@@ -20,7 +20,7 @@ defineEmits(["click"]);
 .base-button {
   border: none;
   color: white;
-  padding: 15px 32px;
+  padding: 15px 30px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -37,6 +37,10 @@ defineEmits(["click"]);
 
 .secondary {
   background-color: var(--secondary-color);
+}
+
+.accent {
+  background-color: var(--accent-color);
 }
 
 .outline {

@@ -1,20 +1,20 @@
 import { defineStore } from "pinia";
 import { useToken } from "~/composables/useToken";
-import { IPlaylist } from "~/models/Playlist";
-import { ITrack } from "~/models/Track";
+import { IPlaylist, PlaylistItem } from "~/models/Playlist";
+import { ITrack, TrackItem } from "~/models/Track";
 import { IUser } from "~/models/User";
 
 export const useUserStore = defineStore("user", {
   state: () => ({
     user: null as IUser | null,
-    playlist: null as IPlaylist | null,
-    tracks: null as ITrack | null,
+    playlist: null as PlaylistItem[] | null,
+    tracks: null as TrackItem[] | null,
     loading: false,
   }),
   getters: {
     blobUrl() {
-      const line = this.tracks?.items
-        .map(
+      const line = this.tracks
+        ?.map(
           (track) =>
             `${track.track.name} | ${track.track.artists
               .map((x) => x.name)
