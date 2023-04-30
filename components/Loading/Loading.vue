@@ -8,8 +8,7 @@
 .loading {
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 100vh;
+  margin-top: 25%;
 }
 
 .loading__spinner {

@@ -1,13 +1,14 @@
 import { defineStore } from "pinia";
 import { useToken } from "~/composables/useToken";
-import { IPlaylist, PlaylistItem } from "~/models/Playlist";
-import { ITrack, TrackItem } from "~/models/Track";
+import { PlaylistItem } from "~/models/Playlist";
+import { TrackItem } from "~/models/Track";
 import { IUser } from "~/models/User";
 
 export const useUserStore = defineStore("user", {
   state: () => ({
     user: null as IUser | null,
     playlist: null as PlaylistItem[] | null,
+    selectedPlaylist: null as PlaylistItem | null,
     tracks: null as TrackItem[] | null,
     loading: false,
   }),
@@ -51,15 +52,16 @@ export const useUserStore = defineStore("user", {
         this.playlist = data;
       }
     },
-    async getPlaylistTracks(playlistId: string) {
+    async getPlaylistTracks(selectedPlaylist: PlaylistItem) {
       if (!this.playlist) {
         await this.getUserPlaylists();
       }
 
       this.tracks = null;
+      this.selectedPlaylist = selectedPlaylist;
       this.loading = true;
 
-      const data = await getPlaylistTracks(playlistId).finally(
+      const data = await getPlaylistTracks(selectedPlaylist.id).finally(
         () => (this.loading = false)
       );
 

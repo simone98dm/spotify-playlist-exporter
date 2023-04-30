@@ -32,7 +32,7 @@ const userStore = useUserStore();
 
 <style lang="scss" scoped>
 .song {
-  margin: 0.5rem 0;
+  margin: 0.5rem;
   font-size: 1.5rem;
   display: flex;
 
@@ -40,7 +40,7 @@ const userStore = useUserStore();
     display: flex;
     flex-direction: column;
     margin-left: 16px;
-    gap: 4px;
+    gap: 0.5rem;
   }
 
   &-artists,

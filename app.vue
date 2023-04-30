@@ -9,22 +9,34 @@ userStore.getUserPlaylists();
   <header>
     <Navbar />
   </header>
-  <Loading v-if="userStore.loading" />
-  <Login />
-  <Playlist />
-  <main>
-    <Track />
-  </main>
+
+  <div class="container">
+    <aside>
+      <!-- Side panel -->
+      <Playlist />
+    </aside>
+    <main>
+      <!-- Main panel -->
+      <Login />
+      <Loading v-if="userStore.loading" />
+      <Track />
+    </main>
+  </div>
 </template>
 
 <style scoped>
 main {
-  margin: 8px;
+  margin: 0.5rem;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-
-  max-width: 1000px;
+  gap: 0.5rem;
   margin: 0 auto;
+  width: 100%;
+}
+
+.container {
+  display: flex;
+  flex: 0 0 33.33333%;
+  gap: 0.5rem;
 }
 </style>

@@ -9,7 +9,7 @@ const userStore = useUserStore();
     <BaseButton
       v-for="playlist in userStore.playlist"
       :key="playlist.id"
-      @click="() => userStore.getPlaylistTracks(playlist.id)"
+      @click="() => userStore.getPlaylistTracks(playlist)"
     >
       {{ playlist.name }}
     </BaseButton>
@@ -18,6 +18,7 @@ const userStore = useUserStore();
 
 <style lang="scss" scoped>
 .playlist {
+  margin: 0.5rem;
   width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));

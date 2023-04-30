@@ -14,7 +14,7 @@ const userStore = useUserStore();
         data-testid="download-playlist"
       >
         <a :href="userStore.blobUrl" download="playlist.txt">
-          Download playlist
+          Download playlist {{ userStore.selectedPlaylist?.name }}
         </a>
       </BaseButton>
     </div>
